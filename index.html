@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gerador de Recibo</title>
+  <title>Gerador de Recibo | Locação Escolar</title>
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
@@ -11,21 +11,30 @@
   <style>
     :root {
       --primary: #3b5bfd;
-      --primary-hover: #2f4ae6;
       --surface: #ffffff;
       --background: #f3f4f7;
       --border: #d8dce3;
       --text: #333;
-      --muted: #6c7685;
-      --shadow: 0 8px 22px rgba(0, 0, 0, 0.07);
       --radius: 12px;
+      --shadow: 0 8px 22px rgba(0,0,0,0.07);
     }
 
-    * { margin: 0; padding: 0; box-sizing: border-box; font-family: "Inter", sans-serif; }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Inter", sans-serif;
+    }
 
-    body { background: var(--background); padding: 24px; }
+    body {
+      background: var(--background);
+      padding: 16px;
+    }
 
-    .container { max-width: 1100px; margin: auto; }
+    .container {
+      max-width: 1100px;
+      margin: auto;
+    }
 
     header {
       background: var(--surface);
@@ -44,34 +53,44 @@
 
     .form-container, .preview-container {
       flex: 1;
+      min-width: 100%;
       background: var(--surface);
       padding: 20px;
       border-radius: var(--radius);
       box-shadow: var(--shadow);
-      min-width: 320px;
+    }
+
+    @media (min-width: 920px) {
+      .form-container { min-width: 45%; }
+      .preview-container { min-width: 45%; }
     }
 
     .section-title {
       font-size: 1.2rem;
       color: var(--primary);
       font-weight: 700;
-      margin-bottom: 10px;
-      padding-bottom: 5px;
+      margin: 20px 0 10px;
       border-bottom: 2px solid var(--primary);
+      padding-bottom: 5px;
     }
 
     .form-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 16px;
-      margin-bottom: 20px;
     }
 
-    @media(max-width:768px){
-      .form-grid { grid-template-columns:1fr; }
+    @media (max-width: 600px) {
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
     }
 
-    label { font-weight: 700; margin-bottom: 6px; display:block; }
+    label {
+      display: block;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
 
     input, select, textarea {
       width: 100%;
@@ -82,7 +101,33 @@
       font-size: 1rem;
     }
 
-    textarea { min-height: 70px; }
+    textarea {
+      min-height: 80px;
+    }
+
+    /* Checkbox corrigido e responsivo */
+    .checkbox-pay {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      cursor: pointer;
+      user-select: none;
+      background: #fafafa;
+      font-weight: 600;
+    }
+
+    .checkbox-pay input {
+      width: 20px;
+      height: 20px;
+      cursor: pointer;
+    }
+
+    .checkbox-pay:hover {
+      background: #eef0f4;
+    }
 
     .btn {
       width: 100%;
@@ -90,39 +135,13 @@
       background: var(--primary);
       color: white;
       border: none;
-      border-radius: 10px;
-      margin-top: 20px;
       font-weight: 700;
+      border-radius: 10px;
       cursor: pointer;
+      margin-top: 25px;
     }
 
-    /* CHECKBOX CORRIGIDO */
-    .checkbox-pay {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 10px;
-      background: #fafafa;
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      cursor: pointer;
-      font-weight: 600;
-      user-select: none;
-    }
-
-    .checkbox-pay input[type="checkbox"] {
-      width: 20px;
-      height: 20px;
-      cursor: pointer;
-      pointer-events: auto;
-      appearance: auto;
-    }
-
-    .checkbox-pay:hover {
-      background: #eef0f4;
-    }
-
-    /* PRÉVIA */
+    /* Receipt */
     .receipt {
       padding: 20px;
       background: white;
@@ -130,41 +149,72 @@
       border: 1px solid #ddd;
     }
 
-    /* PDF ABSOLUTO */
+    .receipt-header {
+      text-align: center;
+      padding-bottom: 10px;
+      border-bottom: 2px solid black;
+      margin-bottom: 15px;
+    }
+
+    .receipt-title {
+      font-size: 22pt;
+      font-weight: 900;
+    }
+
+    .receipt-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 6px;
+    }
+
+    .receipt-amount {
+      border: 2px solid black;
+      padding: 12px;
+      text-align: center;
+      margin: 20px 0;
+      font-size: 18pt;
+      border-radius: 8px;
+    }
+
+    .signature-area {
+      margin-top: 35px;
+      text-align: center;
+    }
+
+    .signature-line {
+      width: 260px;
+      margin: auto;
+      border-top: 1px solid #000;
+      margin-bottom: 5px;
+    }
+
+    .hash-code {
+      margin-top: 20px;
+      font-size: 10pt;
+      text-align: center;
+      color: #444;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    /* PDF absolute center */
     .receipt-for-pdf {
       width: 210mm;
       height: 297mm;
       background: white;
-      position: relative;
       display: flex;
       justify-content: center;
       align-items: center;
-      overflow: hidden;
     }
 
     .receipt-for-pdf-content {
       width: 70%;
       padding: 12mm;
-      max-height: 80%;
-      background: white;
-      border-radius: 10px;
       font-size: 12pt;
-      line-height: 1.5;
     }
 
-    @page { size: A4; margin: 0; }
-
-    .receipt-header { text-align: center; padding-bottom: 8px; margin-bottom: 12px; border-bottom: 2px solid black; }
-    .receipt-title { font-size: 22pt; font-weight: 900; }
-    .receipt-row { display: flex; justify-content: space-between; margin-bottom: 6px; }
-    .receipt-amount { border: 2px solid black; padding: 12px; text-align: center; font-size: 18pt; margin: 20px 0; border-radius: 8px; }
-
-    .signature-area { margin-top: 30px; text-align: center; }
-    .signature-line { width: 260px; margin: auto; border-top: 1px solid #000; margin-bottom: 5px; }
-
-    .hash-code { margin-top: 20px; font-size: 10pt; color: #555; text-align: center; }
-
-    .hidden { display: none; }
   </style>
 </head>
 
@@ -189,6 +239,7 @@
         <label>Data</label>
         <input type="date" id="receiptDate">
       </div>
+
       <div>
         <label>Cidade</label>
         <input type="text" id="city">
@@ -202,13 +253,15 @@
         <label>Nome</label>
         <input type="text" id="landlordName">
       </div>
+
       <div>
         <label>Telefone</label>
-        <input type="text" id="landlordPhone">
+        <input type="text" id="landlordPhone" placeholder="(11) 99999-9999">
       </div>
     </div>
 
-    <h2 class="section-title">Locatário(Inquilino)</h2>
+    <h2 class="section-title">Locatário (Inquilino)</h2>
+
     <label>Nome</label>
     <input type="text" id="tenantName">
 
@@ -227,10 +280,8 @@
     <label>Valor (R$)</label>
     <input type="text" id="amount" placeholder="0,00">
 
-    <label>Forma de pagamento (múltiplas opções)</label>
-
+    <label>Forma de pagamento</label>
     <div style="display:flex;flex-direction:column;gap:10px;">
-
       <label class="checkbox-pay">
         <input type="checkbox" class="payChk" value="PIX"> PIX
       </label>
@@ -242,7 +293,6 @@
       <label class="checkbox-pay">
         <input type="checkbox" class="payChk" value="Dinheiro"> Dinheiro
       </label>
-
     </div>
 
     <h2 class="section-title">Observações</h2>
@@ -304,7 +354,21 @@
 
 <script>
 
-/* =============== FORMAT BRL =============== */
+/* TELEFONE — FORMATAÇÃO AUTOMÁTICA */
+document.getElementById("landlordPhone").addEventListener("input", function(e) {
+  let v = e.target.value.replace(/\D/g, "");
+
+  if (v.length > 11) v = v.slice(0, 11);
+
+  if (v.length >= 1) v = "(" + v;
+  if (v.length >= 3) v = v.slice(0, 3) + ") " + v.slice(3);
+  if (v.length >= 10) v = v.slice(0, 10) + "-" + v.slice(10);
+
+  e.target.value = v;
+  updatePreview();
+});
+
+/* VALOR BRL */
 document.getElementById("amount").addEventListener("input", e => {
   let v = e.target.value.replace(/\D/g,"");
   v = (Number(v)/100).toFixed(2).replace(".",",");
@@ -312,14 +376,14 @@ document.getElementById("amount").addEventListener("input", e => {
   updatePreview();
 });
 
-/* =============== FUNÇÕES =============== */
+/* FUNÇÕES */
 function generateHash(){
-  return (Math.random().toString(36).substring(2)+Date.now().toString(36)).toUpperCase();
+  return (Math.random().toString(36).substring(2) + Date.now().toString(36)).toUpperCase();
 }
 
 function formatDate(v){
   if(!v) return "";
-  const [y,m,d]=v.split("-");
+  const [y,m,d] = v.split("-");
   return `${d}/${m}/${y}`;
 }
 
@@ -337,12 +401,11 @@ function updatePreview(){
   const amt = document.getElementById("amount").value.replace(".","").replace(",",".");
 
   document.getElementById("amountPreview").textContent =
-    parseFloat(amt||0).toLocaleString("pt-BR",{minimumFractionDigits:2});
+    parseFloat(amt || 0).toLocaleString("pt-BR",{minimumFractionDigits:2});
 
   document.getElementById("descPreview").textContent =
     document.getElementById("paymentDescription").value;
 
-  /* Múltiplos checkboxes funcionando */
   const methods = [...document.querySelectorAll(".payChk:checked")].map(c=>c.value);
   document.getElementById("methodPreview").textContent = methods.join(", ");
 
@@ -374,7 +437,7 @@ document.querySelectorAll("input,select,textarea").forEach(el=>{
   el.addEventListener("change",updatePreview);
 });
 
-/* =============== PDF A4 =============== */
+/* PDF */
 document.getElementById("downloadPDF").addEventListener("click",()=>{
 
   updatePreview();
@@ -393,14 +456,9 @@ document.getElementById("downloadPDF").addEventListener("click",()=>{
     margin:[0,0,0,0],
     filename:`recibo_${new Date().toISOString().split("T")[0]}.pdf`,
     jsPDF:{ unit:"mm", format:"a4", orientation:"portrait" },
-    html2canvas:{
-      scale:2,
-      scrollY:0,
-      scrollX:0
-    },
+    html2canvas:{ scale:2, scrollY:0, scrollX:0 },
     pagebreak:{ mode:[] }
   }).from(wrapper).save();
-
 });
 
 </script>
